@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IVideosRepository
     {
-        IResult<Video> GetAllVideos();
+        IResult<List<Video>> GetAllVideos();
         Video GetVideoById(int id);
         void DeleteVideoById(int id,int uid);
         Video PostVideo(Video video);

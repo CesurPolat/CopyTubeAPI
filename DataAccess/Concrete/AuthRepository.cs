@@ -14,7 +14,7 @@ namespace DataAccess.Concrete
         {
             using (var context = new CopytubeContext())
             {
-                var result = from Users in context.Users where Users.Email == user.Email && Users.Password == user.Password select Users;
+                /*var result = from Users in context.Users where Users.Email == user.Email && Users.PasswordHash == user.Password select Users;
                 if (result.Any())
                 {
                     return result.First();
@@ -22,7 +22,8 @@ namespace DataAccess.Concrete
                 else
                 {
                     return new User();
-                }
+                }*/
+                return new User();
             }
         }
 

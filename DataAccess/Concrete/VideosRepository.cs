@@ -11,12 +11,12 @@ namespace DataAccess.Concrete
 {
     public class VideosRepository:IVideosRepository
     {
-        public IResult<Video> GetAllVideos()
+        public IResult<List<Video>> GetAllVideos()
         {
             using (var context = new CopytubeContext())
             {
                 var result=from Videos in context.Videos join Users in context.Users on Videos.Channel_id equals Users.Id select new { Videos,Channel=Users };
-                return new IResult<Video>{ Data= context.Videos.ToList() ,Message="ss"};
+                return new IResult<List<Video>> { Data= context.Videos.ToList() ,Message="Success"};
             }
         }
 

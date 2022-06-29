@@ -18,20 +18,40 @@ namespace Business.Concrete
     public class AuthManager:IAuthService
     {
         private IAuthRepository _authRepository;
+        private IUsersRepository _usersRepository;
         public AuthManager()
         {
             _authRepository = new AuthRepository();
+            _usersRepository = new UsersRepository();
         }
 
-        public string Login(UserLoginDto user)
+        public IResult<string> Login(UserLoginDto user)
         {
-            User userData = _authRepository.Login(user);
-            if (userData.Id == 0) { return ""; };
+            User userData = _usersRepository.GetUserByEmail(user.Email);
+
+            //User userData = _authRepository.Login(user);
+            if (userData.Id == 0)
+            {
+                return new IResult<string> { Data = "", Message = "Wrong Email or Password", Success = false };
+            };
+            
+
+            using (var hcmac = new System.Security.Cryptography.HMACSHA512(userData.PasswordSalt))
+            {
+                var computedHash = hcmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != userData.PasswordHash[i])
+                    {
+                        return new IResult<string> { Data = "", Message = "Wrong Email or Password", Success = false };
+                    }
+                }
+
+            }
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,userData.Id.ToString()),
             };
-            
 
             //Config den veri çek
             var token = new JwtSecurityToken(
@@ -46,12 +66,34 @@ namespace Business.Concrete
                 );
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return tokenString;
+            return new IResult<string> { Data= tokenString ,Message="Success",Success=true};
         }
 
-        public User Register(User user)
+        public IResult<String> Register(UserRegisterDto user)
         {
-            return _authRepository.Register(user);
+            if (_usersRepository.GetUserByEmail(user.Email).Id>0)
+            {
+                return new IResult<String> { Data = "", Message = "User exist!",Success=false };
+            }
+
+            byte[] passwordHash, passwordSalt;
+            using (var hcmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hcmac.Key;
+                passwordHash = hcmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
+            }
+
+            var userData = new User
+            {
+                Name = user.Name,
+                Email = user.Email,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
+            _authRepository.Register(userData);
+            string tokenString = Login(new UserLoginDto{Email= user.Email,Password=user.Password }).Data.ToString();
+
+            return new IResult<String>{Data= tokenString, Message="Success Account Created",Success=true};
         }
     }
 }

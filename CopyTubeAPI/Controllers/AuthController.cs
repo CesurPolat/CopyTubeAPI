@@ -21,22 +21,22 @@ namespace CopyTubeAPI.Controllers
         public IActionResult Login([FromBody] UserLoginDto body)
         {
             var result = _authService.Login(body);
-            if (result == "")
+            if (result.Success)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
             else
             {
-                return Ok(result);
+                return BadRequest(result);
             }
 
         }
 
         //TODO Return Token
         [HttpPost("register")]
-        public User Register([FromBody] User body)
+        public IActionResult Register([FromBody] UserRegisterDto body)
         {
-            return _authService.Register(body);
+            return Ok(_authService.Register(body));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Business.Abstract
 {
     public interface IAuthService
     {
-        string Login(UserLoginDto user);
-        User Register(User user);
+        IResult<string> Login(UserLoginDto user);
+        IResult<string> Register(UserRegisterDto user);
     }
 }

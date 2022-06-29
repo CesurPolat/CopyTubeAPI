@@ -25,5 +25,19 @@ namespace DataAccess.Concrete
                 return context.Users.Find(id);
             }
         }
+
+        public User GetUserByEmail(string email)
+        {
+            using (var context = new CopytubeContext())
+            {
+                var result = from Users in context.Users where Users.Email == email select Users;
+                if (result.ToList().Count>0)
+                {
+                    return result.ToList().First();
+                }
+                return new User();
+            }
+            
+        }
     }
 }

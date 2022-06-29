@@ -18,7 +18,7 @@ namespace Business.Concrete
             _videosRepository = new VideosRepository();
         }
 
-        public IResult<Video> GetAllVideos()
+        public IResult<List<Video>> GetAllVideos()
         {
             return _videosRepository.GetAllVideos();
         }
