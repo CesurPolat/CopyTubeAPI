@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Projects\CopyTubeAPI\CopyTubeAPI\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-06-28T01:49:45.9299411Z;True|2022-06-28T04:23:04.0578173+03:00;True|2022-06-26T02:43:08.3512330+03:00;True|2022-06-25T04:34:03.0678420+03:00;True|2022-06-25T04:25:44.7367365+03:00;True|2022-06-25T03:51:59.7886885+03:00;True|2022-06-25T03:31:19.3688253+03:00;False|2022-06-25T03:24:33.8053091+03:00;True|2022-06-25T01:47:58.4627529+03:00;True|2022-06-25T01:38:41.7306960+03:00;True|2022-06-25T01:33:21.8990491+03:00;True|2022-06-25T00:54:44.0223525+03:00;</History>
+  </PropertyGroup>
+</Project>

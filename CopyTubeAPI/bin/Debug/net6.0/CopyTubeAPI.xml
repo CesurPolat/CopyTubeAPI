@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CopyTubeAPI</name>
+    </assembly>
+    <members>
+        <member name="M:CopyTubeAPI.Controllers.VideosController.DeleteVideoById(System.Int32)">
+            <summary>
+            Token Required
+            </summary>
+        </member>
+        <member name="M:CopyTubeAPI.Controllers.VideosController.PostVideo(Entities.DTOs.Video)">
+            <summary>
+            Token Required
+            </summary>
+        </member>
+    </members>
+</doc>
