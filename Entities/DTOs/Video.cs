@@ -20,5 +20,6 @@ namespace Entities.DTOs
         public int Dislike { get; set; }
         public int View { get; set; }
         public int Channel_id { get; set; }
+        //public RelationUser? RelationUser { get; set; }
     }
 }

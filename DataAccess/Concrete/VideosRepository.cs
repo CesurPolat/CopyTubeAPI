@@ -11,24 +11,28 @@ namespace DataAccess.Concrete
 {
     public class VideosRepository:IVideosRepository
     {
-        public IResult<List<Video>> GetAllVideos()
+        public IResult<List<RelationUser>> GetAllVideos()
         {
             using (var context = new CopytubeContext())
             {
-                var result=from Videos in context.Videos join Users in context.Users on Videos.Channel_id equals Users.Id select new { Videos,Channel=Users };
-                return new IResult<List<Video>> { Data= context.Videos.ToList() ,Message="Success"};
+                var result=from Videos in context.Videos join Users in context.Users on Videos.Channel_id equals Users.Id select new RelationUser{ Id=Users.Id,Name=Users.Name,Video=Videos };
+                return new IResult<List<RelationUser>> { Data= result.ToList(), Message="Success",Success=true};
             }
         }
 
-        public Video GetVideoById(int id)
+        public IResult<RelationUser> GetVideoById(int id)
         {
             using (var context = new CopytubeContext())
             {
                 var videoData = context.Videos.Find(id);
+                if (videoData == null) { return new IResult<RelationUser> { Data = new RelationUser(), Message = "No Video", Success = false }; }
                 videoData.View += 1;
                 context.Update(videoData);
                 context.SaveChanges();
-                return videoData;
+
+                var result = from Videos in context.Videos join Users in context.Users on Videos.Channel_id equals Users.Id where Videos.Id == id select new RelationUser { Id = Users.Id, Name = Users.Name, Video = Videos };
+                return new IResult<RelationUser> { Data = result.ToList().First<RelationUser>(), Message = "Success", Success = true };
+
             }
         }
 

@@ -28,7 +28,15 @@ namespace CopyTubeAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult VideoById(int id)
         {
-            return Ok(videosService.GetVideoById(id));
+            var result = videosService.GetVideoById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         /// <summary>

@@ -18,12 +18,12 @@ namespace Business.Concrete
             _videosRepository = new VideosRepository();
         }
 
-        public IResult<List<Video>> GetAllVideos()
+        public IResult<List<RelationUser>> GetAllVideos()
         {
             return _videosRepository.GetAllVideos();
         }
 
-        public Video GetVideoById(int id)
+        public IResult<RelationUser> GetVideoById(int id)
         {
             return _videosRepository.GetVideoById(id);
         }
