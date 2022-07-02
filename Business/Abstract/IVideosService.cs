@@ -13,6 +13,6 @@ namespace Business.Abstract
         IResult<List<RelationUser>> GetAllVideos();
         IResult<RelationUser> GetVideoById(int id);
         void DeleteVideoById(int id,int uid);
-        Video PostVideo(Video video);
+        IResult<Video> PostVideo(Video video);
     }
 }

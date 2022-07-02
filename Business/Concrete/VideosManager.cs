@@ -34,9 +34,15 @@ namespace Business.Concrete
             _videosRepository.DeleteVideoById(id,uid);
         }
 
-        public Video PostVideo(Video video)
+        public IResult<Video> PostVideo(Video video)
         {
-            return _videosRepository.PostVideo(video);
+            video.Timestamp = (int)new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            return new IResult<Video>
+            {
+                Data= _videosRepository.PostVideo(video),
+                Message="Video Successfully Uploaded",
+                Success=true
+            };
         }
     }
 }

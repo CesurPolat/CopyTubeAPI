@@ -61,6 +61,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 app.UseSwagger(x => x.SerializeAsV2 = false);
 app.UseSwaggerUI(x =>
 {
