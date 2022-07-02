@@ -27,5 +27,12 @@ namespace CopyTubeAPI.Controllers
         {
             return Ok(usersService.GetUserById(id));
         }
+
+        [HttpPut("uploadProfilePhoto")]
+        public IActionResult ProfilePhoto([FromForm] List<IFormFile> file, [FromForm] int userId)
+        {
+            usersService.UploadProfilePhoto(file[0],userId);
+            return Ok(file);
+        }
     }
 }

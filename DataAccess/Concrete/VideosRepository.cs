@@ -25,7 +25,7 @@ namespace DataAccess.Concrete
             using (var context = new CopytubeContext())
             {
                 var videoData = context.Videos.Find(id);
-                if (videoData == null) { return new IResult<RelationUser> { Data = new RelationUser(), Message = "No Video", Success = false }; }
+                if (videoData == null) { return new IResult<RelationUser> { Message = "No Video", Success = false }; }
                 videoData.View += 1;
                 context.Update(videoData);
                 context.SaveChanges();

@@ -8,9 +8,9 @@ namespace Core.Utilities.Security.JWT
 {
     public class JwtHelper
     {
-        public static string getData()
+        public static string getToken(string claim)
         {
-            return "aa";
+            return "Test";
         }
     }
 }

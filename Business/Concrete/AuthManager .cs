@@ -32,7 +32,7 @@ namespace Business.Concrete
             //User userData = _authRepository.Login(user);
             if (userData.Id == 0)
             {
-                return new IResult<string> { Data = "", Message = "Wrong Email or Password", Success = false };
+                return new IResult<string> { Message = "Wrong Email or Password", Success = false };
             };
             
 
@@ -73,7 +73,7 @@ namespace Business.Concrete
         {
             if (_usersRepository.GetUserByEmail(user.Email).Id>0)
             {
-                return new IResult<String> { Data = "", Message = "User exist!",Success=false };
+                return new IResult<String> { Message = "User exist!",Success=false };
             }
 
             byte[] passwordHash, passwordSalt;

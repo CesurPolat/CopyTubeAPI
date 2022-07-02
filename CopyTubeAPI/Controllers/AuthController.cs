@@ -38,5 +38,6 @@ namespace CopyTubeAPI.Controllers
         {
             return Ok(_authService.Register(body));
         }
+
     }
 }

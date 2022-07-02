@@ -1,4 +1,5 @@
 ﻿using Entities.DTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace DataAccess.Abstract
         List<User> GetAllUsers();
         User GetUserById(int id);
         User GetUserByEmail(string email);
+        void UploadProfilePhoto(byte[] file, int uid);
     }
 }
