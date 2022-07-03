@@ -1,4 +1,5 @@
-﻿using Entities.DTOs;
+﻿using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace DataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
