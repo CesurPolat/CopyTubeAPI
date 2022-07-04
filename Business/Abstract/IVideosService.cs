@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.DTOs;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace Business.Abstract
 {
     public interface IVideosService
     {
-        IResult<List<RelationUser>> GetAllVideos();
-        IResult<RelationUser> GetVideoById(int id);
+        IResult<List<RelationUser<Video>>> GetAllVideos();
+        IResult<RelationUser<Video>> GetVideoById(int id);
         void DeleteVideoById(int id,int uid);
         IResult<Video> PostVideo(Video video);
     }

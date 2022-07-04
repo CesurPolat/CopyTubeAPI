@@ -33,16 +33,16 @@ namespace Business.Concrete
             return new IResult<Comment>{Data=commentData,Message="Successfully Comment Posted",Success=true };
         }
 
-        public IResult<List<Comment>> GetCommentsByVideoId(int id)
+        public IResult<List<RelationUser<Comment>>> GetCommentsByVideoId(int id)
         {
             var commentsData=commentsRepository.GetCommentsByVideoId(id);
             if(commentsData.Count==0)
             {
-                return new IResult<List<Comment>> {Message="There aren't comment in this video",Success=true };
+                return new IResult<List<RelationUser<Comment>>> { Message="There aren't comment in this video",Success=true };
             }
             else
             {
-                return new IResult<List<Comment>> { Data=commentsData,Message = "There are comment in this video", Success = true };
+                return new IResult<List<RelationUser<Comment>>> { Data=commentsData,Message = "There are comment in this video", Success = true };
             }
         }
     }

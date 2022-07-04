@@ -11,7 +11,7 @@ namespace Business.Abstract
 {
     public interface ICommentsService
     {
-        IResult<List<Comment>> GetCommentsByVideoId(int id);
         IResult<Comment> PostComment(CommentDto comment,int userId);
+        IResult<List<RelationUser<Comment>>> GetCommentsByVideoId(int id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -59,13 +60,14 @@ namespace CopyTubeAPI.Controllers
         /// </summary>
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IActionResult PostVideo([FromForm] VideoDto body, [FromForm] List<IFormFile> file)
+        public IActionResult PostVideo([FromForm] VideoDto body, [FromForm] List<IFormFile> thumbnail, [FromForm] List<IFormFile> video)
         {
             var videoFolder = _environment.WebRootPath + "\\Videos\\";
-            var videoUrl = new Random().Next()+ "." + file[0].FileName.Split('.')[^1];
+            var videoUrl = new Random().Next()+ "." + video[0].FileName.Split('.')[^1];
+            byte[] fileBytes;
             try
             {
-                if (file.Count > 0)
+                if (video.Count > 0)
                 {
                     if (!Directory.Exists(videoFolder))
                     {
@@ -73,7 +75,7 @@ namespace CopyTubeAPI.Controllers
                     }
                     using (FileStream fileStream = System.IO.File.Create(videoFolder + videoUrl ))
                     {
-                        file[0].CopyTo(fileStream);
+                        video[0].CopyTo(fileStream);
                         fileStream.Flush();
                     }
                 }
@@ -82,11 +84,21 @@ namespace CopyTubeAPI.Controllers
             {
                 return BadRequest(new IResult<string>{Message= "Couldn't Upload Video",Success=false });
             }
+
+            using (var ms = new MemoryStream())
+            {
+                thumbnail[0].CopyTo(ms);
+                fileBytes = ms.ToArray();
+                string s = Convert.ToBase64String(fileBytes);
+                // act on the Base64 data
+            }
+
             var videoData = new Video
             {
                 Title=body.Title,
                 Description=body.Description,
-                VideoUrl= videoUrl,
+                Thumbnail= fileBytes,
+                VideoUrl = videoUrl,
             };
             videoData.Channel_id = int.Parse(User.Claims.First(x => x.Type.IndexOf("nameidentifier") != -1).Value);
             var resp = videosService.PostVideo(videoData);

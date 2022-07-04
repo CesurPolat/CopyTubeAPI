@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
-using Entities.DTOs;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

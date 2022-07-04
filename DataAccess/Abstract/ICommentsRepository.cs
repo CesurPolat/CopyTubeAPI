@@ -9,7 +9,7 @@ namespace DataAccess.Abstract
 {
     public interface ICommentsRepository
     {
-        List<Comment> GetCommentsByVideoId(int id);
         Comment PostComment(Comment comment);
+        List<RelationUser<Comment>> GetCommentsByVideoId(int id);
     }
 }

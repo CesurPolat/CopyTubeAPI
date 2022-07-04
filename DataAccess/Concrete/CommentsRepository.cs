@@ -1,6 +1,5 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +20,12 @@ namespace DataAccess.Concrete
             }
         }
 
-        public List<Comment> GetCommentsByVideoId(int id)
+        public List<RelationUser<Comment>> GetCommentsByVideoId(int id)
         {
             using(var context = new CopytubeContext())
             {
-                return context.Comments.Where(c=> c.Video_id==id).ToList();
+                var result=from Comments in context.Comments where Comments.Video_id == id join Users in context.Users on Comments.Channel_id equals Users.Id select new RelationUser<Comment> { Id=Users.Id,Name=Users.Name,ProfilePhoto=Users.ProfilePhoto,Data=Comments};
+                return result.ToList();
             }
         }
     }
